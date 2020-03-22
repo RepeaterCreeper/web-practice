@@ -238,7 +238,7 @@
             age = calculateAge(fields['DOB']);
 
             $.post({
-                url: "/process/api.php",
+                url: "./process/api.php",
                 dataType: "json",
                 data: JSON.stringify({
                     type: 'insert',
@@ -270,7 +270,7 @@
             age = calculateAge(fields['DOB']);
 
             $.post({
-                url: "/process/api.php",
+                url: "./process/api.php",
                 dataType: "json",
                 data: JSON.stringify({
                     type: 'update',
@@ -300,7 +300,7 @@
          */
         function populateTable() {
             $.post({
-                url: "/process/api.php",
+                url: "./process/api.php",
                 dataType: "json",
                 data: JSON.stringify({
                     type: "retrieveAll"
@@ -340,7 +340,7 @@
          */
         function deleteRecord() {
             $.post({
-                url: "/process/api.php",
+                url: "./process/api.php",
                 dataType: "json",
                 data: JSON.stringify({
                     type: "delete",
@@ -364,7 +364,7 @@
          */
         function search() {
             $.post({
-                url: "/process/api.php",
+                url: "./process/api.php",
                 dataType: "json",
                 data: JSON.stringify({
                     type: "search",
