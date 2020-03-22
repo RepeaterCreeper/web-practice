@@ -105,8 +105,8 @@
                                 <th>First Name</th>
                                 <th>Middle Initial</th>
                                 <th>Last Name</th>
-                                <th>Course</th>
                                 <th>Birthday</th>
+                                <th>Course</th>
                                 <th>Age</th>
                             </tr>
                         </thead>
