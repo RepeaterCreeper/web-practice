@@ -2,6 +2,8 @@
 ![](https://img.shields.io/badge/Author-RepeaterCreeper-For--The--Badge?logo=github&style=for-the-badge)
 ![](https://img.shields.io/github/license/RepeaterCreeper/web-practice?style=for-the-badge) ![](https://img.shields.io/github/issues/RepeaterCreeper/web-practice?style=for-the-badge)
 
+![](https://imgur.com/Qoezsvi.png)
+
 The Student Catalog System is as the name implies catalogs all the student and puts all the information that is available in the database. This system is aimed to be scale as the number of user grows. However, at the moment it's currently in its infancy and there isn't much aside from very basic CRUD system. If you wish to contribute, the code base for this is going to be open-source. A roadmap is provided down below to give you a general idea of where this is headed.
 
 **NOTE**: There is an alternate version that is currently under development built with Electron. Functionality is the same, but with a little bit of extra features. However, the Electron version will ONLY be following what the Web version has.
@@ -18,5 +20,5 @@ The Student Catalog System is as the name implies catalogs all the student and p
 ## Roadmap
 - Create a *config.php* file to be used a central point for setting all necessary fields to setup the System.
 
----
-### This readme is currently under works. Last updates (03/22/2020 05:32PM GMT+8) 
+## Project Setup / Installation
+In Progress
