@@ -41,11 +41,25 @@
 </head>
 
 <body>
+    <nav class="purple darken-3">
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo"
+                style="margin-left: 16px; font-family: 'Roboto'; font-size: 2rem;">Student Information System</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="sass.html"></a></li>
+                <li><a class="modal-trigger" href="#aboutModal">About</a></li>
+                <li><a href="/projects">View More</a></li>
+            </ul>
+        </div>
+    </nav>
+
     <div class="row">
-        <div class="col l8 offset-l2 hide" data-container-id="newRecord" style="align-items: center;justify-content: center;">
+        <div class="col l8 offset-l2 hide" data-container-id="newRecord"
+            style="align-items: center;justify-content: center;">
             <div class="card" data-card-id="dynamicForm">
                 <div class="card-header">
-                    <h5 class="card-title" style="margin: 0;padding: 8px;background-color: burlywood;color: white;"></h5>
+                    <h5 class="card-title" style="margin: 0;padding: 8px;background-color: burlywood;color: white;">
+                    </h5>
                 </div>
                 <div class="card-body" style="padding: 16px;">
                     <div class="row" style="margin: 0;">
@@ -82,10 +96,12 @@
                 <div class="card-footer" style="padding: 4px;">
                     <div class="row" style="margin: 0;">
                         <div class="col s6" style="padding-left: 0;">
-                            <button class="btn waves-effect grey darken-3" onclick="toggleForm('back')" style="width: 100%">Cancel</button>
+                            <button class="btn waves-effect grey darken-3" onclick="toggleForm('back')"
+                                style="width: 100%">Cancel</button>
                         </div>
                         <div class="col s6" style="padding-right: 0;">
-                            <button class="btn waves-effect green lighten-3" id="submitAction" style="width: 100%;">Add New Record</button>
+                            <button class="btn waves-effect green lighten-3" id="submitAction" style="width: 100%;">Add
+                                New Record</button>
                         </div>
                     </div>
                 </div>
@@ -126,7 +142,8 @@
                     <div class="row" style="margin: 0;">
                         <div class="col s12" style="margin-bottom: 8px;">
                             <div class="input-field col s12" style="padding: 0; margin: 0;">
-                                <input placeholder="Student #" id="studentNoSearch" data-input-tag="studentNo" type="text">
+                                <input placeholder="Student #" id="studentNoSearch" data-input-tag="studentNo"
+                                    type="text">
                             </div>
                         </div>
                         <div class="col s12" style="margin-bottom: 8px;">
@@ -159,303 +176,26 @@
             </div>
         </div>
     </div>
+    <!-- Modal Structure -->
+    <div id="aboutModal" class="modal">
+        <div class="modal-content">
+            <h4>About Project</h4>
+            <p>Project #: <b>1</b></p>
+            <p>Project Name: <b>Student Information System</b></p>
+            <p>Author: <b>Joseph Chua &lt;RepeaterCreeper&gt;</b></p>
+            <p>Notes: <pre>There will be many more of this same type, but packed with more features and I guess a better codebase. Though that's still on standby.</pre></p>
+            <hr>
+            <p>Project Description:</p>
+            <p>This project was created as part of the many projects that I will be creating as practice with HTML, CSS, JS and PHP. This is the very first project and it's the most simple as well. The ideas is to practice AJAX along with creating a very simple website that is capable of CRUD. <br><br>If you wish to view more about this project you can check out the GitHub page by pressing the <i>View Source</i> button. There is a <i>README</i> dedicated to explaining the features and installation of this particular project. This will be the same procedure for all upcoming projects that will be creating from here on out.</p>
+        </div>
+        <div class="modal-footer">
+            <a href="https://github.com/RepeaterCreeper/web-practice/tree/master/projects/studentcatalog-basic" target="_blank" class="waves-effect waves-blue btn-flat">View Source</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+    </div>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/materialize.min.js"></script>
-    <script type="text/javascript">
-        let userID;
-
-        $(document).ready(function(){
-
-            populateTable();
-        });
-
-        /**
-         * Toggles the Add / Edit form
-         */
-        function toggleForm(type) {
-            /**
-             * Change content of the form
-             */
-            let card = document.querySelector("[data-card-id='dynamicForm']");
-
-            if (document.querySelector("body").style.overflow == "hidden") {
-                document.querySelector("body").style.overflow = "";
-            } else {
-                document.querySelector("body").style.overflow = "hidden";
-                if (type == "edit") {
-                    $.post({
-                        url: "/process/api.php",
-                        type: "json",
-                        data: JSON.stringify({
-                            type: "retrieve",
-                            payload: {
-                                "id": userID
-                            }
-                        }),
-                        success: function(data) {
-                            let fields = document.querySelectorAll("[data-card-id='dynamicForm'] input");
-
-                            for (let i = 0; i < data['data'][0].length - 2; i++) {
-                                fields[i].value = data['data'][0][i + 1];
-                            }
-                        }
-                    })
-                    card.querySelector(".card-title").innerText = "Edit Record Form";
-                    card.querySelector(".card-footer #submitAction").setAttribute("onclick", `editRecord(${userID})`);
-                    card.querySelector(".card-footer #submitAction").innerText = "Save Changes";
-                } else if (type == "create"){
-                    card.querySelector(".card-title").innerText = "New Record Form";
-                    card.querySelector(".card-footer #submitAction").setAttribute("onclick", "addNewRecord()");
-                    card.querySelector(".card-footer #submitAction").innerText = "Add New Record";
-                }
-            }
-            
-            document.querySelector(".row").classList.toggle("formMode");
-            const containers = document.querySelectorAll("[data-container-id]");
-            
-            containers[0].classList.toggle("hide");
-            containers[1].classList.toggle("hide");
-            containers[2].classList.toggle("hide");
-
-            /**
-             * Clear Fields
-             */
-            document.querySelectorAll("[data-card-id='dynamicForm'] input").forEach((data) => {
-                data.value = ""
-            });
-        }
-
-        /**
-         * Add New Record
-         */
-        function addNewRecord() {
-            let fields = {};
-            document.querySelectorAll("[data-card-id='dynamicForm'] input").forEach((data) => {
-                fields[data.id] = data.value
-            });
-
-            fields["DOB"] = convertToStandard(fields["DOB"]);
-            age = calculateAge(fields['DOB']);
-
-            $.post({
-                url: "./process/api.php",
-                dataType: "json",
-                data: JSON.stringify({
-                    type: 'insert',
-                    payload: {
-                        ...fields,
-                        age: age
-                    }
-                }),
-                success: function(data) {
-                    if (data.status == 200) {
-                        $("body").css("overflow", "hidden");
-                        populateTable();
-                        toggleForm();
-                    }
-                }
-            });
-        }
-
-        /**
-         * Edit Record
-         */
-        function editRecord(id) {
-            let fields = {};
-            document.querySelectorAll("[data-card-id='dynamicForm'] input").forEach((data) => {
-                fields[data.id] = data.value
-            });
-
-            fields["DOB"] = convertToStandard(fields["DOB"]);
-            age = calculateAge(fields['DOB']);
-
-            $.post({
-                url: "./process/api.php",
-                dataType: "json",
-                data: JSON.stringify({
-                    type: 'update',
-                    id: id,
-                    payload: {
-                        ...fields,
-                        age: age
-                    }
-                }),
-                success: function(data) {
-                    if (data.status == 200) {
-                        userID = null;
-
-                        document.querySelector("#deleteRecordButton").setAttribute("disabled", true);
-                        document.querySelector("#editRecordButton").setAttribute("disabled", true);
-                        $("body").css("overflow", "hidden");
-
-                        populateTable();
-                        toggleForm();
-                    }
-                }
-            });
-        }
-
-        /**
-         * Fills up the table with initial data.
-         */
-        function populateTable() {
-            $.post({
-                url: "./process/api.php",
-                dataType: "json",
-                data: JSON.stringify({
-                    type: "retrieveAll"
-                }),
-                success: function (data) {
-                    let studentListContainer = document.querySelector("*[data-container='studentList']");
-                    studentListContainer.innerText = "";
-
-                    for (let student of data['data']) {
-                        let tr = document.createElement("tr");
-
-                        let firstCol = true;
-
-                        for (let info of student) {
-                            let td = document.createElement("td");
-                            td.innerText = info;
-                            tr.appendChild(td);
-
-                            if (firstCol) {
-                                tr.setAttribute("data-id", info);
-                                td.style.display = "none";
-                                firstCol = false;
-                            }
-                        }
-
-                        // Attach event listener to each row
-                        tr.addEventListener("click", (e) => rowSelectionHandler(e));
-
-                        studentListContainer.appendChild(tr);
-                    }
-                }
-            });
-        }
-
-        /**
-         *  Delete Record
-         */
-        function deleteRecord() {
-            $.post({
-                url: "./process/api.php",
-                dataType: "json",
-                data: JSON.stringify({
-                    type: "delete",
-                    payload: {
-                        id: userID
-                    }
-                }),
-                success: function (data) {
-                    document.querySelector(`tr[data-id='${userID}']`).remove();
-
-                    id = null;
-
-                    document.querySelector("#deleteRecordButton").setAttribute("disabled", true);
-                    document.querySelector("#editRecordButton").setAttribute("disabled", true);
-                }
-            })
-        }
-
-        /**
-         * Search
-         */
-        function search() {
-            $.post({
-                url: "./process/api.php",
-                dataType: "json",
-                data: JSON.stringify({
-                    type: "search",
-                    searchString: document.querySelector("#studentNoSearch").value
-                }),
-                success: function (data) {
-                    let studentListContainer = document.querySelector("*[data-container='studentList']");
-                    studentListContainer.innerHTML = "";
-
-                    for (let student of data['data']) {
-                        let tr = document.createElement("tr");
-
-                        let firstCol = true;
-
-                        for (let info of student) {
-                            let td = document.createElement("td");
-                            td.innerText = info;
-                            tr.appendChild(td);
-
-                            if (firstCol) {
-                                tr.setAttribute("data-id", info);
-                                td.style.display = "none";
-                                firstCol = false;
-                            }
-                        }
-
-                        // Attach event listener to each row
-                        tr.addEventListener("click", (e) => rowSelectionHandler(e));
-
-                        studentListContainer.appendChild(tr);
-                    }
-                }
-            })
-        }
-
-        /**
-         * Calculates the age given a DOB.
-         */
-        function calculateAge(dob) {
-            let [year, month, day] = dob.split("-").map((data) => parseInt(data));
-            let curDate = new Date();
-            let curYear = curDate.getFullYear(),
-                curMonth = curDate.getMonth() + 1,
-                curDay = curDate.getDate();
-
-            let age = curYear - year;
-            
-            if (curMonth < month) age -= 1;
-            if (curMonth == month && curDay < day) age -= 1;
-
-            return age;
-        }
-
-        function convertToStandard(dob) {
-            let date = new Date(dob);
-
-            return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
-        }
-
-        /**
-         * Selection Handler
-         */
-        function rowSelectionHandler(e) {
-            let rowElement = e.path[1];
-            // Get id on selection of a row
-
-            if (rowElement.querySelector("td").textContent == userID) {
-                rowElement.classList.remove("selected-row");
-                userID = null;
-
-                document.querySelector("#deleteRecordButton").setAttribute("disabled", true);
-                document.querySelector("#editRecordButton").setAttribute("disabled", true);
-
-                return;
-            } else {
-                userID = rowElement.querySelector("td").textContent;
-            }
-
-            // Remove highlight to currently selected row (if any)
-            if (document.querySelector(".selected-row")) {
-                document.querySelector(".selected-row").classList.remove("selected-row");
-            }
-
-            // Highlight the row;
-            rowElement.classList.add("selected-row");
-
-            // Enable Buttons
-            document.querySelector("#deleteRecordButton").removeAttribute("disabled");
-            document.querySelector("#editRecordButton").removeAttribute("disabled");
-        }
-    </script>
+    <script type="text/javascript" src="js/main.js"></script>
 </body>
 
 </html>
