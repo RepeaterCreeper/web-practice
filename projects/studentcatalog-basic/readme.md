@@ -18,7 +18,12 @@ The Student Catalog System is as the name implies catalogs all the student and p
 
 
 ## Roadmap
+- **[PRIORITY]** Add form validation.
 - Create a *config.php* file to be used a central point for setting all necessary fields to setup the System.
 
 ## Project Setup / Installation
-In Progress
+1. `git clone https://github.com/RepeaterCreeper/web-practice.git` (If you wish to add a folder name or a specific directory you wish to clone in just add it at the end.)
+2. `cd web-practice` change directory to the cloned repository directory. (Unless you changed the name, it should be web-practice.)
+3. If using xampp, open up PHPMyAdmin and go to the **IMPORT** tab.
+4. Press **CHOOSE FILE** and select the database file located in the project directory named `studentcatalog.sql`. 
+5. Go to `localhost/projects/studentcatalog-basic` and you should see this running.
