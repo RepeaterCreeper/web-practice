@@ -20,7 +20,7 @@ function toggleForm(type) {
         document.querySelector("body").style.overflow = "hidden";
         if (type == "edit") {
             $.post({
-                url: "/process/api.php",
+                url: "./process/api.php",
                 type: "json",
                 data: JSON.stringify({
                     type: "retrieve",
